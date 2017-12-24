@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace GGM.Application
 {
-    public class ApplicationContext : ManagedContext
+    public sealed class ApplicationContext : ManagedContext
     {
         public ApplicationContext(Assembly assembly)
         {

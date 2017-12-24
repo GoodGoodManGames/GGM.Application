@@ -7,7 +7,7 @@
         NotExistMatchedServiceConstructor
     }
 
-    public class RunApplicationException : System.Exception
+    public sealed class RunApplicationException : System.Exception
     {
         public RunApplicationException(RunApplicationError runApplicationError)
             : base($"Fail to run application. {nameof(RunApplicationError)} : {runApplicationError}")

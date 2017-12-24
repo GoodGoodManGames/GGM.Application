@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace GGM.Application
 {
-    public class GGMApplication
+    public sealed class GGMApplication
     {
         private GGMApplication(string[] args, Type applicationClass)
         {
