@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace GGM.Application.Service
 {
@@ -17,6 +18,6 @@ namespace GGM.Application.Service
         /// <summary>
         ///     서비스를 실행시킵니다.
         /// </summary>
-        void Boot(string[] arguments);
+        Task Boot(string[] arguments);
     }
 }

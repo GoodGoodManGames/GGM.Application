@@ -5,6 +5,7 @@ using GGM.Application.Service;
 using GGM.Application.Exception;
 using GGM.Context.Attribute;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace GGM.Application
 {
@@ -63,8 +64,8 @@ namespace GGM.Application
                 Services.Add(serviceObject);
             }
 
-            foreach (var service in Services)
-                service.Boot(Arguments);
+            var tasks = Services.Select(service => service.Boot(Arguments));
+            Task.WaitAll(tasks.ToArray());
         }
 
         private void Validate(bool condition, RunApplicationError error) { if (!condition) throw new RunApplicationException(error); }

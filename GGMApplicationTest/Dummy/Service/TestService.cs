@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using GGM.Application.Service;
 using GGM.Context.Attribute;
 using UnitTest.Dummy.Entity;
@@ -12,9 +13,9 @@ namespace GGMApplicationTest.Dummy.Service
 
         public bool IsAlreadyBoot { get; set; }
 
-        public void Boot(string[] arguments)
+        public Task Boot(string[] arguments)
         {
-            IsAlreadyBoot = true;
+            return Task.Run(() => { IsAlreadyBoot = true; });
         }
     }
 
