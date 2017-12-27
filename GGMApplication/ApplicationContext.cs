@@ -50,6 +50,7 @@ namespace GGM.Application
             return result;
         }
 
+        // TODO: 이는 추후 통합되어야 합니다.
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void ConfigMapping(object target)
         {
