@@ -93,6 +93,7 @@ namespace GGM.Application
 
                 var parameters = constructor.GetParameters().Select(info => Context.GetManaged(info.ParameterType));
                 IService serviceObject = constructor.Invoke(parameters.ToArray()) as IService;
+                Context.ConfigMapping(serviceObject);
                 serviceObject.ID = Guid.NewGuid();
                 Services.Add(serviceObject);
             }

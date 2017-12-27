@@ -8,6 +8,7 @@ using System.Reflection.Emit;
 
 using static System.Reflection.Emit.OpCodes;
 using GGM.Application.Attribute;
+using System.Runtime.CompilerServices;
 
 namespace GGM.Application
 {
@@ -44,12 +45,20 @@ namespace GGM.Application
             var result = base.Create(type, parameters);
 
             //TODO: 해당 type에 ConfigAttribute가 없는 경우 아래 일련의 동작을 하지 않으면 속도 항상을 얻을 수 있다.
+            ConfigMapping(result);
+
+            return result;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void ConfigMapping(object target)
+        {
+            var type = target.GetType();
             if (!mConfigMapperCache.ContainsKey(type))
                 mConfigMapperCache[type] = GenerateConfigMapper(type);
 
             var configMapper = mConfigMapperCache[type];
-            configMapper(result);
-            return result;
+            configMapper(target);
         }
 
         private ConfigMapper GenerateConfigMapper(Type type)

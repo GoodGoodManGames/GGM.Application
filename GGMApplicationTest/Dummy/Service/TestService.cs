@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using GGM.Application.Service;
 using GGM.Context.Attribute;
 using UnitTest.Dummy.Entity;
+using GGM.Application.Attribute;
 
 namespace GGMApplicationTest.Dummy.Service
 {
@@ -21,6 +22,8 @@ namespace GGMApplicationTest.Dummy.Service
 
     public class ConstructorService : TestService
     {
+        [Config("project.name")]
+        public string ApplicationName { get; set; }
         [AutoWired]
         public ConstructorService(SingletonManaged singletonManaged)
         {
