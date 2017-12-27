@@ -1,4 +1,5 @@
-﻿using GGM.Context;
+﻿using GGM.Application.Attribute;
+using GGM.Context;
 using GGM.Context.Attribute;
 
 namespace UnitTest.Dummy.Entity
@@ -8,6 +9,11 @@ namespace UnitTest.Dummy.Entity
     {
         [AutoWired]
         public SingletonManaged(ProtoManaged protoManaged, ProtoManaged_1 protoManaged_1) { }
+
+        [Config("project.name")]
+        public string ApplicationName { get; set; }
+        [Config("project.version")]
+        public string ApplicationVersion { get; set; }
     }
 
     [Managed(ManagedType.Singleton)]
