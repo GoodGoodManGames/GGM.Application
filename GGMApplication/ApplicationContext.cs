@@ -9,6 +9,7 @@ using System.Reflection.Emit;
 using static System.Reflection.Emit.OpCodes;
 using GGM.Application.Attribute;
 using System.Runtime.CompilerServices;
+using GGM.Application.Exception;
 
 namespace GGM.Application
 {
@@ -97,7 +98,7 @@ namespace GGM.Application
                 else if (propertyType == typeof(double))
                     il.Emit(Ldc_R8, double.Parse(value));
                 else
-                    throw new System.Exception("현재 지원되지 않는 타입입니다.");
+                    throw new ConfigMappingException(ConfigMappingError.NotSupportedType);
                 #endregion
                 il.Emit(Callvirt, propertyInfo.GetSetMethod()); // Empty
             }
