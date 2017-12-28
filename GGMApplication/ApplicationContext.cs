@@ -45,6 +45,7 @@ namespace GGM.Application
             var result = base.Create(type, parameters);
 
             //TODO: 해당 type에 ConfigAttribute가 없는 경우 아래 일련의 동작을 하지 않으면 속도 항상을 얻을 수 있다.
+            //      Singleton인 경우는 성능 누락이 의미없겠지만, Proto의 경우에는 다름.
             ConfigMapping(result);
 
             return result;
@@ -72,9 +73,6 @@ namespace GGM.Application
 
             foreach (var configInfo in configInfos)
             {
-                if (configInfo.PropertyInfo.PropertyType != typeof(string))
-                    throw new System.Exception("현재 string 타입의 config value만 지원합니다.");
-
                 var key = configInfo.ConfigAttribute.Key;
                 if (!mConfigs.ContainsKey(key))
                 {
@@ -82,11 +80,26 @@ namespace GGM.Application
                     continue;
                 }
 
-                //TODO: 테스트용 문자열만 박아놓는 코드이다.
+                var propertyInfo = configInfo.PropertyInfo;
+                var propertyType = propertyInfo.PropertyType;
+
                 var value = mConfigs[key];
                 il.Emit(Ldarg_0); // [targetObject]
-                il.Emit(Ldstr, value); // [targetObject] [Value]
-                il.Emit(Callvirt, configInfo.PropertyInfo.GetSetMethod()); // Empty
+                #region [targetObject] [Value]
+                if (propertyInfo.PropertyType == typeof(string))
+                    il.Emit(Ldstr, value);
+                else if (propertyType == typeof(int))
+                    il.Emit(Ldc_I4, int.Parse(value));
+                else if (propertyType == typeof(long))
+                    il.Emit(Ldc_I8, long.Parse(value));
+                else if (propertyType == typeof(float))
+                    il.Emit(Ldc_R4, float.Parse(value));
+                else if (propertyType == typeof(double))
+                    il.Emit(Ldc_R8, double.Parse(value));
+                else
+                    throw new System.Exception("현재 지원되지 않는 타입입니다.");
+                #endregion
+                il.Emit(Callvirt, propertyInfo.GetSetMethod()); // Empty
             }
             il.Emit(Ret);
 

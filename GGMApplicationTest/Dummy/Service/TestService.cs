@@ -24,6 +24,14 @@ namespace GGMApplicationTest.Dummy.Service
     {
         [Config("project.name")]
         public string ApplicationName { get; set; }
+        [Config("project.testint")]
+        public int TestInt { get; set; }
+        [Config("project.testlong")]
+        public long TestLong { get; set; }
+        [Config("project.testfloat")]
+        public float TestFloat { get; set; }
+        [Config("project.testdouble")]
+        public double TestDouble { get; set; }
         [AutoWired]
         public ConstructorService(SingletonManaged singletonManaged)
         {
