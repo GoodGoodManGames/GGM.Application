@@ -19,6 +19,8 @@ public string ResourcePath { get; set; } // "./Resources"가 주입된다.
 ## Service
 사용자는 GGMApplication을 실행할때 Service를 지정해줄 수 있으며, 지정된 서비스는 GGMApplication에 의해 생성된 후 의존성과 설정을 주입받습니다.
 
+Service는 GGMContext에 의해 관리되는 것이 아니라 GGMApplication에 의해 관리됩니다. 때문에  Managed와 다르게 다른 서비스 혹은 Managed에 주입되지 않습니다.
+
 ```csharp
 // Main.cs
 public static void Main(stringp[] args)
