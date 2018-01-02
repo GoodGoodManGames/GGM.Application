@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2006
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GGMApplication", "GGMApplication\GGMApplication.csproj", "{39849D03-3937-4211-8D6F-B494CBE35234}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GGM.Application", "GGM.Application\GGM.Application.csproj", "{39849D03-3937-4211-8D6F-B494CBE35234}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GGMApplicationTest", "GGMApplicationTest\GGMApplicationTest.csproj", "{3A9BC66E-FD07-4958-9307-65300F323A17}"
 EndProject
