@@ -10,6 +10,9 @@ using System.IO;
 
 namespace GGM.Application
 {
+    /// <summary>
+    ///     프로그램의 정보를 받아 ApplicationContext를 초기화 시켜주고 Service들을 관리하고 Boot 하는 클래스입니다.
+    /// </summary>
     public sealed class GGMApplication
     {
         private GGMApplication(string[] args, Type applicationClass, Dictionary<string, string> configs)
@@ -19,14 +22,40 @@ namespace GGM.Application
             Configs = configs;
         }
 
+        /// <summary>
+        ///     어플리케이션 실행시 받는 인자값입니다.
+        /// </summary>
         //TODO: 추후 객체화 될 예정
         public string[] Arguments { get; }
 
+        /// <summary>
+        ///     샐행되는 어플리케이션의 Assembly입니다.
+        /// </summary>
         public Assembly ApplicationAssembly { get; private set; }
+        
+        /// <summary>
+        ///     실행한 어플리케이션의 Context입니다.
+        /// </summary>
         public ApplicationContext Context { get; private set; }
+        
+        /// <summary>
+        ///     Application에 등록된 Services들입니다.
+        /// </summary>
         public List<IService> Services { get; private set; }
+        
+        /// <summary>
+        ///     설정된 Config 파일의 데이터입니다.
+        /// </summary>
         public Dictionary<string, string> Configs { get; set; }
 
+        /// <summary>
+        ///     GGMApplication의 객체를 만들어 실행합니다.
+        /// </summary>
+        /// <param name="applicationClass">GGMApplication을 실행하는 클래스의 타입</param>
+        /// <param name="configPath">Config 파일의 path</param>
+        /// <param name="args">프로그램 인자값</param>
+        /// <param name="serviceTypes">실행하는 서비스들의 타입들</param>
+        /// <returns>실행된 GGMApplication의 객체</returns>
         public static GGMApplication Run(Type applicationClass, string configPath, string[] args, params Type[] serviceTypes)
         {
             var application = new GGMApplication(args, applicationClass, ConfigUtil.ParseConfigInternal(configPath));
@@ -51,16 +80,16 @@ namespace GGM.Application
             foreach (var serviceType in serviceTypes)
             {
                 bool isServiceClass = typeof(IService).IsAssignableFrom(serviceType);
-                Validate(isServiceClass, RunApplicationError.IsNotServiceClass);
+                RunApplicationException.Check(isServiceClass, RunApplicationError.IsNotServiceClass);
 
                 bool isNotAbstract = !serviceType.IsAbstract;
-                Validate(isNotAbstract, RunApplicationError.IsAbstractClass);
+                RunApplicationException.Check(isNotAbstract, RunApplicationError.IsAbstractClass);
 
                 // AutoWired된 생성자가 없을 시, 기본 생성자를 반환시킴.
                 var constructor = serviceType.GetConstructors().FirstOrDefault(info => info.IsDefined(typeof(AutoWiredAttribute)))
                     ?? serviceType.GetConstructor(Type.EmptyTypes);
                 bool hasMatchedConstructor = constructor != null;
-                Validate(hasMatchedConstructor, RunApplicationError.NotExistMatchedServiceConstructor);
+                RunApplicationException.Check(hasMatchedConstructor, RunApplicationError.NotExistMatchedServiceConstructor);
 
                 var parameters = constructor.GetParameters().Select(info => Context.GetManaged(info.ParameterType));
                 IService serviceObject = constructor.Invoke(parameters.ToArray()) as IService;
@@ -73,6 +102,5 @@ namespace GGM.Application
             Task.WaitAll(tasks.ToArray());
         }
 
-        private void Validate(bool condition, RunApplicationError error) { if (!condition) throw new RunApplicationException(error); }
     }
 }

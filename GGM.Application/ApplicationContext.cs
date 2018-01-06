@@ -13,10 +13,16 @@ using GGM.Application.Exception;
 
 namespace GGM.Application
 {
+    /// <summary>
+    ///     어플리케이션 전체의 Context입니다. 적용되는 Assembly의 Singleton Managed 클래스들을 미리 로드합니다.
+    ///     주입될때 생성되는 Managed들의 ConfigAttribute가 달린 프로퍼티들에 값을 매핑해줍니다. 
+    /// </summary>
     public sealed class ApplicationContext : ManagedContext
     {
         private delegate void ConfigMapper(object target);
 
+        /// <param name="assembly">Scan할 Assembly</param>
+        /// <param name="configs">설정 데이터</param>
         public ApplicationContext(Assembly assembly, Dictionary<string, string> configs)
         {
             Assembly = assembly;
@@ -37,6 +43,9 @@ namespace GGM.Application
             }
         }
 
+        /// <summary>
+        ///     Scan한 Assembly
+        /// </summary>
         public Assembly Assembly { get; }
         private Dictionary<string, string> mConfigs;
         private Dictionary<Type, ConfigMapper> mConfigMapperCache = new Dictionary<Type, ConfigMapper>();
@@ -54,7 +63,7 @@ namespace GGM.Application
 
         // TODO: 이는 추후 통합되어야 합니다.
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void ConfigMapping(object target)
+        internal void ConfigMapping(object target)
         {
             var type = target.GetType();
             if (!mConfigMapperCache.ContainsKey(type))
