@@ -1,25 +1,23 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
-    <Version>1.5.0</Version>
+    <Version>1.5.1</Version>
     <Description>GoodGoodManGames에서 사용하는 프레임워크입니다.</Description>
-    <Copyright></Copyright>
+    <Copyright>
+    </Copyright>
     <PackageLicenseUrl>https://github.com/GoodGoodManGames/GGM.Application/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/GoodGoodManGames/GGM.Application</PackageProjectUrl>
     <PackageIconUrl>https://avatars1.githubusercontent.com/u/32609950?s=200&amp;v=4</PackageIconUrl>
-    <RepositoryType></RepositoryType>
+    <RepositoryType>
+    </RepositoryType>
     <RepositoryUrl>https://github.com/GoodGoodManGames/GGM.Application</RepositoryUrl>
     <PackageTags>GGM</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>bin\Debug\netcoreapp2.0\GGMApplication.xml</DocumentationFile>
   </PropertyGroup>
-
   <ItemGroup>
-    <PackageReference Include="GGMContext" Version="1.5.0" />
+    <PackageReference Include="GGMContext" Version="1.5.1" />
   </ItemGroup>
-
 </Project>
