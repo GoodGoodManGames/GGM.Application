@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
-    <Version>1.6.0</Version>
+    <Version>1.6.1</Version>
     <Description>GoodGoodManGames에서 사용하는 프레임워크입니다.</Description>
     <Copyright>
     </Copyright>
@@ -18,6 +18,6 @@
     <DocumentationFile>bin\Debug\netcoreapp2.0\GGMApplication.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="GGMContext" Version="2.0.0-pre1" />
+    <PackageReference Include="GGMContext" Version="2.0.0-pre3" />
   </ItemGroup>
 </Project>

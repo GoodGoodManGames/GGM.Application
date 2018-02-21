@@ -1,4 +1,5 @@
 using GGM.Application;
+using GGMApplicationTest.Dummy.Configuration;
 using GGMApplicationTest.Dummy.Service;
 using Xunit;
 using Xunit.Abstractions;
@@ -47,6 +48,13 @@ namespace GGMApplicationTest
             Assert.Equal(service.TestLong, 10000000000);
             Assert.Equal(service.TestFloat, 3.3f);
             Assert.Equal(service.TestDouble, 3.31232451d);
+        }
+        
+        [Fact]
+        public void LoadConfigurationTest()
+        {
+            var configuration = _application.Context.GetManaged<TestConfiguration>();
+            Assert.NotNull(configuration);
         }
     }
 }

@@ -27,17 +27,10 @@ namespace GGM.Application
         {
             Assembly = assembly;
             _configs = configs;
-
-            // 모든 어셈블리의 Type을 탐색하여 Managed를 등록
-            var allAssemblyManagedTypes = AppDomain.CurrentDomain.GetAssemblies()
-                .SelectMany(item => item.GetTypes())
-                .Where(type => type.IsDefined(typeof(ManagedAttribute)));
-            foreach (var type in allAssemblyManagedTypes)
-                Register(type);
-
+            
             // 현재 어셈블리의 Singleton들은 미리 생성.
-            var currentAssemblySignletonTypes = allAssemblyManagedTypes
-                .Where(type => type.Assembly == assembly)
+            var currentAssemblySignletonTypes = assembly.GetTypes()
+                .Where(type => type.IsDefined(typeof(ManagedAttribute)))
                 .ToDictionary(type => type, type => type.GetCustomAttribute<ManagedAttribute>());
             foreach (var managedType in currentAssemblySignletonTypes)
             {
