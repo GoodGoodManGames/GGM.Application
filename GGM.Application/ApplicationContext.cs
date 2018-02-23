@@ -38,23 +38,6 @@ namespace GGM.Application
                     GetManaged(managedType.Key);
             }
         }
-        
-        static private IEnumerable<Type> Explore(Assembly assembly)
-        {
-            return assembly.GetTypes().SelectMany(ApplicationContext.Explore);
-        }
-
-        static private IEnumerable<Type> Explore(Type type)
-        {
-            foreach (var _type in type.GetNestedTypes(BindingFlags.Static | BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.DeclaredOnly).SelectMany(ApplicationContext.Explore)) { yield return _type; }
-            yield return type;
-        }
-
-        static private IEnumerable<Type> Explore()
-        {
-            var _domain = AppDomain.CurrentDomain.GetAssemblies();
-            return _domain.SelectMany(ApplicationContext.Explore);
-        }
 
         /// <summary>
         ///     Scan한 Assembly
@@ -99,7 +82,7 @@ namespace GGM.Application
                 var key = configInfo.ConfigAttribute.Key;
                 if (!_configs.ContainsKey(key))
                 {
-                    Console.WriteLine("해당 Key의 설정이 존재하지 않습니다. 이는 무시됩니다.");
+                    Console.WriteLine($@"""{key}"" : 해당 Key의 설정이 존재하지 않습니다.");
                     continue;
                 }
 

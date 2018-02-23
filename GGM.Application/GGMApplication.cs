@@ -58,6 +58,15 @@ namespace GGM.Application
         /// <returns>실행된 GGMApplication의 객체</returns>
         public static GGMApplication Run(Type applicationClass, string configPath, string[] args, params Type[] serviceTypes)
         {
+            if(applicationClass == null)
+                throw new ArgumentNullException(nameof(applicationClass));
+            if(configPath == null)
+                throw new ArgumentNullException(nameof(configPath));
+            if(args == null)
+                throw new ArgumentNullException(nameof(args));
+            if(serviceTypes == null)
+                Console.WriteLine("서비스 타입이 존재하지 않습니다. 이는 아무것도 실행하지 않습니다.");
+            
             var application = new GGMApplication(args, applicationClass, ConfigUtil.ParseConfigInternal(configPath));
             application.RunInternal(serviceTypes);
             return application;
@@ -98,9 +107,14 @@ namespace GGM.Application
                 Services.Add(serviceObject);
             }
 
-            var tasks = Services.Select(service => service.Boot(Arguments));
+            var tasks = Services.Select(StartService);
             Task.WaitAll(tasks.ToArray());
         }
 
+        private Task StartService(IService service)
+        {
+            Console.WriteLine($"{service.GetType()}+{service.ID}... : Boot");
+            return service.Boot(Arguments);
+        }
     }
 }
