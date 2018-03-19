@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GGM.Application", "GGM.Appl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GGMApplicationTest", "GGMApplicationTest\GGMApplicationTest.csproj", "{3A9BC66E-FD07-4958-9307-65300F323A17}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GGM.Application.Test", "GGM.Application.Test\GGM.Application.Test.csproj", "{A351A1EA-7C11-49B1-8798-CB3E6FEF9914}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{3A9BC66E-FD07-4958-9307-65300F323A17}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A9BC66E-FD07-4958-9307-65300F323A17}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A9BC66E-FD07-4958-9307-65300F323A17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A351A1EA-7C11-49B1-8798-CB3E6FEF9914}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A351A1EA-7C11-49B1-8798-CB3E6FEF9914}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A351A1EA-7C11-49B1-8798-CB3E6FEF9914}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A351A1EA-7C11-49B1-8798-CB3E6FEF9914}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

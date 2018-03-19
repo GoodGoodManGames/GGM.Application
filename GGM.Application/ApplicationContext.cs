@@ -76,7 +76,10 @@ namespace GGM.Application
                                     .Where(info => info.ConfigAttribute != null);
             var dynamicMethod = new DynamicMethod($"{type}ConfigMapper+{Guid.NewGuid()}", null, new[] { typeof(object) });
             var il = dynamicMethod.GetILGenerator();
-
+            var targetVariable = il.DeclareLocal(type);
+            il.Emit(Ldarg_0);
+            il.Emit(Castclass, type);
+            il.Emit(Stloc, targetVariable);
             foreach (var configInfo in configInfos)
             {
                 var key = configInfo.ConfigAttribute.Key;
@@ -90,7 +93,7 @@ namespace GGM.Application
                 var propertyType = propertyInfo.PropertyType;
 
                 var value = _configs[key];
-                il.Emit(Ldarg_0); // [targetObject]
+                il.Emit(Ldloc, targetVariable); // [targetObject]
                 #region [targetObject] [Value]
                 if (propertyInfo.PropertyType == typeof(string))
                     il.Emit(Ldstr, value);
